@@ -1,6 +1,7 @@
 import { IsNotEmpty, IsString } from 'class-validator';
+import { StandardRequest } from '../../common/entities/StandardRequest';
 
-export class CreateDocumentDto {
+export class CreateDocumentRequestDto extends StandardRequest {
   @IsString()
   @IsNotEmpty()
   title: string;

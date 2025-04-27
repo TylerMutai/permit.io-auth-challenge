@@ -11,7 +11,7 @@ import { AuthService } from './auth.service';
 import { UsersService } from '../users/users.service';
 
 @Injectable()
-export class BasicAuthGuard implements CanActivate {
+export class AuthGuard implements CanActivate {
   constructor(
     @Inject(forwardRef(() => AuthService))
     private authService: AuthService,

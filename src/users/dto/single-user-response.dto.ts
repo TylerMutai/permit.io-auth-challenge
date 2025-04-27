@@ -1,8 +1,7 @@
 import { UserModel } from '../entities/UserModel';
 import { StandardResponse } from '../../common/entities/StandardResponse';
+import { OmitType } from '@nestjs/mapped-types';
 
-class _SingleUserResponse extends UserModel {
-  override password: string;
-}
+class _SingleUserResponse extends OmitType(UserModel, ['password'] as const) {}
 
 export class SingleUserResponseDto extends StandardResponse<_SingleUserResponse> {}

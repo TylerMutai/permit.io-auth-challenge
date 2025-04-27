@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
-import { PermitModule } from './permit/permit.module';
+import { PermissionsModule } from './permissions/permissions.module';
 import { TeamsModule } from './teams/teams.module';
 import { DocumentsModule } from './documents/documents.module';
 import { JwtModule } from '@nestjs/jwt';
@@ -16,7 +16,7 @@ import { UsersModule } from './users/users.module';
     }),
     AuthModule,
     UsersModule,
-    PermitModule,
+    PermissionsModule,
     TeamsModule,
     DocumentsModule,
   ],

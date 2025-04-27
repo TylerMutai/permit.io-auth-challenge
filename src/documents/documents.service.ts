@@ -1,18 +1,18 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { Document } from './entities/document.entity';
-import { CreateDocumentDto } from './dto/create-document.dto';
-import { UpdateDocumentDto } from './dto/update-document.dto';
+import { DocumentModel } from './entities/document.entity';
+import { CreateDocumentRequestDto } from './dto/create-document-request.dto';
+import { UpdateDocumentRequestDto } from './dto/update-document-request.dto';
 import crypto from 'node:crypto';
 
 @Injectable()
 export class DocumentsService {
-  private documents: Document[] = [];
+  private documents: DocumentModel[] = [];
 
-  findAll(): Document[] {
+  findAll(): DocumentModel[] {
     return this.documents;
   }
 
-  findOne(id: string): Document {
+  findOne(id: string): DocumentModel {
     const doc = this.documents.find((d) => d.id === id);
     if (!doc) {
       throw new NotFoundException(`Document ${id} not found`);
@@ -20,13 +20,13 @@ export class DocumentsService {
     return doc;
   }
 
-  create(createDto: CreateDocumentDto): Document {
-    const doc: Document = { id: crypto.randomUUID(), ...createDto };
+  create(createDto: CreateDocumentRequestDto): DocumentModel {
+    const doc: DocumentModel = { id: crypto.randomUUID(), ...createDto };
     this.documents.push(doc);
     return doc;
   }
 
-  update(id: string, updateDto: UpdateDocumentDto): Document {
+  update(id: string, updateDto: UpdateDocumentRequestDto): DocumentModel {
     const doc = this.findOne(id);
     Object.assign(doc, updateDto);
     return doc;

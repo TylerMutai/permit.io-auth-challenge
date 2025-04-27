@@ -1,53 +1,51 @@
 import {
-  Controller,
-  Get,
-  Post,
   Body,
+  Controller,
+  Delete,
+  Get,
   Param,
   Patch,
-  Delete,
+  Post,
 } from '@nestjs/common';
 import { DocumentsService } from './documents.service';
-import { CreateDocumentDto } from './dto/create-document.dto';
-import { UpdateDocumentDto } from './dto/update-document.dto';
-import { Permission } from '../permit/permit.guard';
-import { Document } from './entities/document.entity';
+import { CreateDocumentRequestDto } from './dto/create-document-request.dto';
+import { UpdateDocumentRequestDto } from './dto/update-document-request.dto';
+import { DocumentModel } from './entities/document.entity';
+import { PermissionDecorator } from '../permissions/permissions.decorator';
 
 @Controller('documents')
 export class DocumentsController {
   constructor(private readonly documentsService: DocumentsService) {}
 
   @Get()
-  @Permission('Document', 'read')
-  findAll(): Document[] {
+  @PermissionDecorator({ resource: 'Document', action: 'read' })
+  findAll(): DocumentModel[] {
     return this.documentsService.findAll();
   }
 
   @Get(':id')
-  @Permission('Document', 'read', 'id')
-  findOne(@Param('id') id: string): Document {
+  @PermissionDecorator({ resource: 'Document', action: 'read' })
+  findOne(@Param('id') id: string): DocumentModel {
     return this.documentsService.findOne(id);
   }
 
   @Post()
-  @Permission('Document', 'create')
-  create(
-    @Body() createDocumentDto: CreateDocumentDto,
-  ): Document {
+  @PermissionDecorator({ resource: 'Document', action: 'create' })
+  create(@Body() createDocumentDto: CreateDocumentRequestDto): DocumentModel {
     return this.documentsService.create(createDocumentDto);
   }
 
   @Patch(':id')
-  @Permission('Document', 'update', 'id')
+  @PermissionDecorator({ resource: 'Document', action: 'update' })
   update(
     @Param('id') id: string,
-    @Body() updateDocumentDto: UpdateDocumentDto,
-  ): Document {
+    @Body() updateDocumentDto: UpdateDocumentRequestDto,
+  ): DocumentModel {
     return this.documentsService.update(id, updateDocumentDto);
   }
 
   @Delete(':id')
-  @Permission('Document', 'delete', 'id')
+  @PermissionDecorator({ resource: 'Document', action: 'delete' })
   remove(@Param('id') id: string): void {
     return this.documentsService.remove(id);
   }

@@ -1,14 +1,14 @@
 import 'reflect-metadata';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { BasicAuthGuard } from './auth/basic-auth.guard';
-import { PermitGuard } from './permit/permit.guard';
+import { AuthGuard } from './auth/auth.guard';
+import { PermissionsGuard } from './permissions/permissions.guard';
 import { ValidationPipe } from '@nestjs/common';
 import { RESTHttpExceptionFilter } from './common/filters/httpException.filter';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.useGlobalGuards(app.get(BasicAuthGuard), app.get(PermitGuard));
+  app.useGlobalGuards(app.get(AuthGuard), app.get(PermissionsGuard));
   app.useGlobalFilters(new RESTHttpExceptionFilter());
   app.useGlobalPipes(
     new ValidationPipe({

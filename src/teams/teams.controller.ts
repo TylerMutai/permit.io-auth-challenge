@@ -1,42 +1,43 @@
 import {
-  Controller,
-  Get,
-  Post,
   Body,
+  Controller,
+  Delete,
+  Get,
   Param,
   Patch,
-  Delete,
+  Post,
 } from '@nestjs/common';
 import { TeamsService } from './teams.service';
 import { CreateTeamRequestDto } from './dto/create-team-request.dto';
 import { UpdateTeamRequestDto } from './dto/update-team-request.dto';
-import { Permission } from '../permit/permit.guard';
 import { TeamModel } from './entities/team.entity';
+import { PermissionDecorator } from '../permissions/permissions.decorator';
+import { GetTeamRequestDto } from './dto/get-team-request.dto';
 
 @Controller('teams')
 export class TeamsController {
   constructor(private readonly teamsService: TeamsService) {}
 
   @Get()
-  @Permission('Team', 'read')
+  @PermissionDecorator({ resource: 'Team', action: 'read' })
   findAll(): TeamModel[] {
     return this.teamsService.findAll();
   }
 
   @Get(':id')
-  @Permission('Team', 'read', 'id')
-  findOne(@Param('id') id: string): TeamModel {
-    return this.teamsService.findOne(id);
+  @PermissionDecorator({ resource: 'Team', action: 'read' })
+  findOne(@Param() req: GetTeamRequestDto): TeamModel {
+    return this.teamsService.findOne(req);
   }
 
   @Post()
-  @Permission('Team', 'create')
+  @PermissionDecorator({ resource: 'Team', action: 'create' })
   create(@Body() createTeamDto: CreateTeamRequestDto): TeamModel {
     return this.teamsService.create(createTeamDto);
   }
 
   @Patch(':id')
-  @Permission('Team', 'update', 'id')
+  @PermissionDecorator({ resource: 'Team', action: 'update' })
   update(
     @Param('id') id: string,
     @Body() updateTeamDto: UpdateTeamRequestDto,
@@ -45,7 +46,7 @@ export class TeamsController {
   }
 
   @Delete(':id')
-  @Permission('Team', 'delete', 'id')
+  @PermissionDecorator({ resource: 'Team', action: 'delete' })
   remove(@Param('id') id: string): void {
     return this.teamsService.remove(id);
   }
