@@ -1,11 +1,11 @@
 import { StandardResponse } from '../../common/entities/StandardResponse';
 import { SingleUserResponse } from '../../users/dto/SingleUserResponse';
-import { IsNotEmpty } from 'class-validator';
+import { IsNotEmpty, IsString } from 'class-validator';
 
 export class SignInWithEmailAndPasswordResponse extends StandardResponse<SignInWithEmailAndPasswordResponse> {
-  @IsNotEmpty()
-  token: string;
+  @IsString()
+  token?: string;
 
   @IsNotEmpty()
-  user: SingleUserResponse;
+  user?: SingleUserResponse;
 }

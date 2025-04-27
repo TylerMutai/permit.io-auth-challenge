@@ -3,6 +3,7 @@ import { SignInWithEmailAndPasswordRequest } from './dto/SignInWithEmailAndPassw
 import { UsersService } from '../users/users.service';
 import { JwtService, JwtSignOptions } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
+import { SignInWithEmailAndPasswordResponse } from './dto/SignInWithEmailAndPasswordResponse';
 
 @Injectable()
 export class AuthService {
@@ -17,7 +18,7 @@ export class AuthService {
   async signInWithEmailAndPassword({
     email,
     password,
-  }: SignInWithEmailAndPasswordRequest) {
+  }: SignInWithEmailAndPasswordRequest): Promise<SignInWithEmailAndPasswordResponse> {
     try {
       const _user = this.usersService.getUser({
         email,
@@ -25,9 +26,16 @@ export class AuthService {
       console.log('_user', _user);
       if (_user.status < 400 && _user.payload?.id) {
         if (_user.payload?.password === password) {
-          return this.createUserSession({
+          const token = await this.createUserSession({
             id: _user.payload.id,
           });
+
+          return {
+            status: 200,
+            message: 'Success',
+            token,
+            user: _user,
+          };
         }
       }
       return {
@@ -42,6 +50,17 @@ export class AuthService {
       status: 500,
       message: 'Server Error',
     };
+  }
+
+  async verifyJWTToken(token: string) {
+    try {
+      return await this.jwtService.verifyAsync<{ sub: string }>(token, {
+        secret: this.configService.get('APP_SECRET'),
+      });
+    } catch (e) {
+      this.logger.error(e);
+    }
+    return undefined;
   }
 
   private async createUserSession({

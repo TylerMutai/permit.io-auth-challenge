@@ -1,34 +1,50 @@
 import {
   CanActivate,
   ExecutionContext,
+  forwardRef,
+  Inject,
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
 import { Request } from 'express';
 import { AuthService } from './auth.service';
+import { UsersService } from '../users/users.service';
 
 @Injectable()
 export class BasicAuthGuard implements CanActivate {
-  constructor(private readonly usersService: AuthService) {}
+  constructor(
+    @Inject(forwardRef(() => AuthService))
+    private authService: AuthService,
+    @Inject(forwardRef(() => UsersService))
+    private usersService: UsersService,
+  ) {}
 
-  canActivate(context: ExecutionContext): boolean {
+  async canActivate(context: ExecutionContext): Promise<boolean> {
     const request: Request = context.switchToHttp().getRequest();
-    const authHeader = request.headers['authorization'];
-    if (!authHeader || !authHeader.startsWith('Basic ')) {
-      throw new UnauthorizedException('Missing Basic Authentication header');
+    const token = this.extractTokenFromHeader(request);
+    if (!token) {
+      throw new UnauthorizedException();
     }
-    const base64Credentials = authHeader.split(' ')[1];
-    const credentials = Buffer.from(base64Credentials, 'base64').toString(
-      'ascii',
-    );
-    const [userId, password] = credentials.split(':');
-    const user = this.usersService.validateUser(userId, password);
-    if (!user) {
-      throw new UnauthorizedException('Invalid credentials');
+    try {
+      const payload = await this.authService.verifyJWTToken(token);
+      if (payload?.sub) {
+        request['userId'] = payload?.sub;
+        const _user = this.usersService.getUser({
+          id: payload?.sub,
+        });
+        if (_user?.payload) {
+          request['user'] = _user.payload;
+        }
+        return true;
+      }
+    } catch {
+      // left blank.
     }
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    (request as any).user = { id: user.userId };
-
-    return true;
+    throw new UnauthorizedException();
   }
+
+  private extractTokenFromHeader = (request: Request) => {
+    const [type, token] = request.headers.authorization?.split(' ') ?? [];
+    return type === 'Bearer' ? token : undefined;
+  };
 }
