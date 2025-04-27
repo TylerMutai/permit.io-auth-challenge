@@ -8,10 +8,10 @@ import {
   Delete,
 } from '@nestjs/common';
 import { TeamsService } from './teams.service';
-import { CreateTeamDto } from './dto/create-team.dto';
-import { UpdateTeamDto } from './dto/update-team.dto';
+import { CreateTeamRequestDto } from './dto/create-team-request.dto';
+import { UpdateTeamRequestDto } from './dto/update-team-request.dto';
 import { Permission } from '../permit/permit.guard';
-import { Team } from './entities/team.entity';
+import { TeamModel } from './entities/team.entity';
 
 @Controller('teams')
 export class TeamsController {
@@ -19,19 +19,19 @@ export class TeamsController {
 
   @Get()
   @Permission('Team', 'read')
-  findAll(): Team[] {
+  findAll(): TeamModel[] {
     return this.teamsService.findAll();
   }
 
   @Get(':id')
   @Permission('Team', 'read', 'id')
-  findOne(@Param('id') id: string): Team {
+  findOne(@Param('id') id: string): TeamModel {
     return this.teamsService.findOne(id);
   }
 
   @Post()
   @Permission('Team', 'create')
-  create(@Body() createTeamDto: CreateTeamDto): Team {
+  create(@Body() createTeamDto: CreateTeamRequestDto): TeamModel {
     return this.teamsService.create(createTeamDto);
   }
 
@@ -39,8 +39,8 @@ export class TeamsController {
   @Permission('Team', 'update', 'id')
   update(
     @Param('id') id: string,
-    @Body() updateTeamDto: UpdateTeamDto,
-  ): Team {
+    @Body() updateTeamDto: UpdateTeamRequestDto,
+  ): TeamModel {
     return this.teamsService.update(id, updateTeamDto);
   }
 

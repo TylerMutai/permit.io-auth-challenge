@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { Document } from './entities/document.entity';
 import { CreateDocumentDto } from './dto/create-document.dto';
 import { UpdateDocumentDto } from './dto/update-document.dto';
-import { v4 as uuidv4 } from 'uuid';
+import crypto from 'node:crypto';
 
 @Injectable()
 export class DocumentsService {
@@ -21,7 +21,7 @@ export class DocumentsService {
   }
 
   create(createDto: CreateDocumentDto): Document {
-    const doc: Document = { id: uuidv4(), ...createDto };
+    const doc: Document = { id: crypto.randomUUID(), ...createDto };
     this.documents.push(doc);
     return doc;
   }

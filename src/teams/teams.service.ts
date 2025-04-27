@@ -1,18 +1,19 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { Team } from './entities/team.entity';
-import { v4 as uuidv4 } from 'uuid';
-import { CreateTeamDto } from './dto/create-team.dto';
-import { UpdateTeamDto } from './dto/update-team.dto';
+import { TeamModel } from './entities/team.entity';
+import { CreateTeamRequestDto } from './dto/create-team-request.dto';
+import { UpdateTeamRequestDto } from './dto/update-team-request.dto';
+import crypto from 'node:crypto';
+import { GetTeamRequestDto } from './dto/get-team-request.dto';
 
 @Injectable()
 export class TeamsService {
-  private teams: Team[] = [];
+  private teams: TeamModel[] = [];
 
-  findAll(): Team[] {
+  findAll(): TeamModel[] {
     return this.teams;
   }
 
-  findOne(id: string): Team {
+  findOne({ id }: GetTeamRequestDto): TeamModel {
     const team = this.teams.find((t) => t.id === id);
     if (!team) {
       throw new NotFoundException(`Team ${id} not found`);
@@ -20,15 +21,16 @@ export class TeamsService {
     return team;
   }
 
-  create(createTeamDto: CreateTeamDto): Team {
-    const team: Team = { id: uuidv4(), ...createTeamDto };
+  create(createTeamDto: CreateTeamRequestDto): TeamModel {
+    const team: TeamModel = { id: crypto.randomUUID(), ...createTeamDto };
     this.teams.push(team);
     return team;
   }
 
-  update(id: string, updateTeamDto: UpdateTeamDto): Team {
-    const team = this.findOne(id);
-    Object.assign(team, updateTeamDto);
+  update({ id, ...rest }: UpdateTeamRequestDto): TeamModel {
+    const team = this.findOne({ id });
+    // update object in memory.
+    Object.assign(team, rest);
     return team;
   }
 

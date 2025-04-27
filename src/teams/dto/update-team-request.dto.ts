@@ -1,13 +1,13 @@
 import { IsArray, IsNotEmpty, IsString } from 'class-validator';
 
-export class TeamModel {
+export class UpdateTeamRequestDto {
   @IsString()
+  @IsNotEmpty()
   id: string;
 
   @IsString()
-  @IsNotEmpty()
-  name: string;
+  name?: string;
 
   @IsArray()
-  userIds: string[];
+  userIds?: string[];
 }

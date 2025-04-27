@@ -1,9 +1,9 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { SignInWithEmailAndPasswordRequest } from './dto/SignInWithEmailAndPasswordRequest';
+import { SignInWithEmailAndPasswordRequestDto } from './dto/sign-in-with-email-and-password-request.dto';
 import { UsersService } from '../users/users.service';
 import { JwtService, JwtSignOptions } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
-import { SignInWithEmailAndPasswordResponse } from './dto/SignInWithEmailAndPasswordResponse';
+import { SignInWithEmailAndPasswordResponseDto } from './dto/sign-in-with-email-and-password-response.dto';
 
 @Injectable()
 export class AuthService {
@@ -18,9 +18,9 @@ export class AuthService {
   async signInWithEmailAndPassword({
     email,
     password,
-  }: SignInWithEmailAndPasswordRequest): Promise<SignInWithEmailAndPasswordResponse> {
+  }: SignInWithEmailAndPasswordRequestDto): Promise<SignInWithEmailAndPasswordResponseDto> {
     try {
-      const _user = this.usersService.getUser({
+      const _user = this.usersService.findOne({
         email,
       });
       console.log('_user', _user);

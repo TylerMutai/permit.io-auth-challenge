@@ -1,7 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { UserModel } from './entities/UserModel';
-import { SingleUserRequest } from './dto/SingleUserRequest';
-import { SingleUserResponse } from './dto/SingleUserResponse';
+import { SingleUserRequestDto } from './dto/single-user-request.dto';
+import { SingleUserResponseDto } from './dto/single-user-response.dto';
 
 @Injectable()
 export class UsersService {
@@ -26,8 +26,8 @@ export class UsersService {
     },
   ];
 
-  getUser({ id }: SingleUserRequest): SingleUserResponse {
-    const user = this.users.find((u) => u.id === id);
+  findOne({ id, email }: SingleUserRequestDto): SingleUserResponseDto {
+    const user = this.users.find((u) => u.id === id || u.email === email);
     if (user) {
       return {
         message: 'Success',
@@ -35,9 +35,6 @@ export class UsersService {
         payload: user,
       };
     }
-    return {
-      message: 'User not found',
-      status: 404,
-    };
+    throw new NotFoundException(`user (${id || ''}${email || ''}) Not found.`);
   }
 }

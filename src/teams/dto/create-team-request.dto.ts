@@ -1,11 +1,8 @@
 import { IsArray, IsNotEmpty, IsString } from 'class-validator';
 
-export class TeamModel {
-  @IsString()
-  id: string;
-
-  @IsString()
+export class CreateTeamRequestDto {
   @IsNotEmpty()
+  @IsString()
   name: string;
 
   @IsArray()

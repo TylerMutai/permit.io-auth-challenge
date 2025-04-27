@@ -5,4 +5,4 @@ class _SingleUserResponse extends UserModel {
   override password: string;
 }
 
-export class SingleUserResponse extends StandardResponse<_SingleUserResponse> {}
+export class SingleUserResponseDto extends StandardResponse<_SingleUserResponse> {}
