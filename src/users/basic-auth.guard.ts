@@ -5,11 +5,11 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { Request } from 'express';
-import { AuthService } from './auth.service';
+import { UsersService } from './users.service';
 
 @Injectable()
 export class BasicAuthGuard implements CanActivate {
-  constructor(private readonly usersService: AuthService) {}
+  constructor(private readonly usersService: UsersService) {}
 
   canActivate(context: ExecutionContext): boolean {
     const request: Request = context.switchToHttp().getRequest();
