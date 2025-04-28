@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { TeamModel } from './entities/team.entity';
 import { CreateTeamRequestDto } from './dto/create-team-request.dto';
 import { UpdateTeamRequestDto } from './dto/update-team-request.dto';
-import crypto from 'node:crypto';
+import * as crypto from 'node:crypto';
 import { GetTeamRequestDto } from './dto/get-team-request.dto';
 import { UpdateTeamResponseDto } from './dto/update-team-response.dto';
 import { CreateTeamResponseDto } from './dto/create-team-response.dto';

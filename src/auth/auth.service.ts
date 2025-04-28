@@ -4,6 +4,7 @@ import { UsersService } from '../users/users.service';
 import { JwtService, JwtSignOptions } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { SignInWithEmailAndPasswordResponseDto } from './dto/sign-in-with-email-and-password-response.dto';
+import { SingleUserResponseWithPasswordDto } from '../users/dto/single-user-response.dto';
 
 @Injectable()
 export class AuthService {
@@ -22,8 +23,8 @@ export class AuthService {
     try {
       const _user = this.usersService.findOne({
         email,
-      });
-      console.log('_user', _user);
+      }) as SingleUserResponseWithPasswordDto;
+      console.log('_user', _user, '\n');
       if (_user.status < 400 && _user.payload?.id) {
         if (_user.payload?.password === password) {
           const token = await this.createUserSession({
@@ -44,17 +45,13 @@ export class AuthService {
       };
     } catch (e) {
       this.logger.error(e);
+      throw e;
     }
-
-    return {
-      status: 500,
-      message: 'Server Error',
-    };
   }
 
   async verifyJWTToken(token: string) {
     try {
-      return await this.jwtService.verifyAsync<{ sub: string }>(token, {
+      return await this.jwtService.verifyAsync<{ id: string }>(token, {
         secret: this.configService.get('APP_SECRET'),
       });
     } catch (e) {

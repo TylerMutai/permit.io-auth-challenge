@@ -1,4 +1,4 @@
 import { StandardResponse } from '../../common/entities/StandardResponse';
-import { DocumentModel } from '../entities/document.entity';
+import { TeamModel } from '../entities/team.entity';
 
-export class GetTeamsResponseDto extends StandardResponse<DocumentModel[]> {}
+export class GetTeamsResponseDto extends StandardResponse<TeamModel[]> {}

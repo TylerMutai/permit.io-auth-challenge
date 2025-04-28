@@ -1,5 +1,5 @@
 import { StandardRequest } from '../../common/entities/StandardRequest';
-import { IsArray, IsString } from 'class-validator';
+import { IsArray, IsOptional, IsString } from 'class-validator';
 
 export class UpdateDocumentRequestDto extends StandardRequest {
   @IsString()
@@ -8,12 +8,15 @@ export class UpdateDocumentRequestDto extends StandardRequest {
   @IsString()
   content?: string;
 
+  @IsOptional()
   @IsArray()
   owners?: string[];
 
+  @IsOptional()
   @IsArray()
   editors?: string[];
 
+  @IsOptional()
   @IsArray()
   viewers?: string[];
 }

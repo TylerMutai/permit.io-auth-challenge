@@ -1,6 +1,7 @@
-import { IsIn } from 'class-validator';
+import { IsIn, IsOptional } from 'class-validator';
 
 export class StandardRequest {
-  @IsIn(['ios', 'android', 'web'])
+  @IsOptional()
+  @IsIn(['ios', 'android', 'web'], { always: false })
   source?: 'ios' | 'android' | 'web';
 }

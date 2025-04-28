@@ -6,6 +6,7 @@ import {
   Param,
   Patch,
   Post,
+  UseGuards,
 } from '@nestjs/common';
 import { TeamsService } from './teams.service';
 import { CreateTeamRequestDto } from './dto/create-team-request.dto';
@@ -17,8 +18,11 @@ import { GetTeamResponseDto } from './dto/get-team-response.dto';
 import { CreateTeamResponseDto } from './dto/create-team-response.dto';
 import { UpdateTeamResponseDto } from './dto/update-team-response.dto';
 import { StandardResponse } from '../common/entities/StandardResponse';
+import { AuthGuard } from '../auth/auth.guard';
+import { PermissionsGuard } from '../permissions/permissions.guard';
 
 @Controller('teams')
+@UseGuards(AuthGuard, PermissionsGuard)
 export class TeamsController {
   constructor(private readonly teamsService: TeamsService) {}
 

@@ -1,13 +1,9 @@
-export const PERMISSION_METADATA_KEY = 'permission';
+import { Reflector } from '@nestjs/core';
 
 export interface PermissionMetadata {
   resource: string;
   action: string;
 }
 
-export function PermissionDecorator({ resource, action }: PermissionMetadata) {
-  return Reflect.metadata(PERMISSION_METADATA_KEY, {
-    resource,
-    action,
-  });
-}
+export const PermissionDecorator =
+  Reflector.createDecorator<PermissionMetadata>();

@@ -14,7 +14,11 @@ export class RESTHttpExceptionFilter implements ExceptionFilter {
     const response = ctx.getResponse<Response>();
     const res = new StandardResponse();
     res.status = exception.getStatus();
-    res.message = exception.message;
+
+    const message1 = exception.message;
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-member-access
+    const message2: string = (exception.getResponse() as any)?.message || '';
+    res.message = `${message1} ${message1 !== message2 ? message2 : ''}`;
 
     // TODO: Log to a backend service?
     console.error('HTTPExceptionFilter exception: ', exception);

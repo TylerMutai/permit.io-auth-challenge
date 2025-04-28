@@ -12,4 +12,10 @@ export class UserModel {
 
   @IsNotEmpty()
   password: string;
+
+  @IsNotEmpty()
+  role: {
+    role: string;
+    tenant: string;
+  };
 }

@@ -27,10 +27,10 @@ export class AuthGuard implements CanActivate {
     }
     try {
       const payload = await this.authService.verifyJWTToken(token);
-      if (payload?.sub) {
-        request['userId'] = payload?.sub;
+      if (payload?.id) {
+        request['userId'] = payload?.id;
         const _user = this.usersService.findOne({
-          id: payload?.sub,
+          id: payload?.id,
         });
         if (_user?.payload) {
           request['user'] = _user.payload;

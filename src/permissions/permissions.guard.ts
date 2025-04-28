@@ -7,7 +7,7 @@ import {
 import { Reflector } from '@nestjs/core';
 import { PermissionsService } from './permissions.service';
 import {
-  PERMISSION_METADATA_KEY,
+  PermissionDecorator,
   PermissionMetadata,
 } from './permissions.decorator';
 import { UserModel } from '../users/entities/UserModel';
@@ -21,7 +21,7 @@ export class PermissionsGuard implements CanActivate {
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const permission: PermissionMetadata = this.reflector.get(
-      PERMISSION_METADATA_KEY,
+      PermissionDecorator,
       context.getHandler(),
     );
     if (!permission) {
@@ -35,7 +35,9 @@ export class PermissionsGuard implements CanActivate {
     }
 
     const allowed = await this.permitService.checkPermission({
-      userId: user.id,
+      user: {
+        key: user.id,
+      },
       resource: permission.resource,
       action: permission.action,
     });

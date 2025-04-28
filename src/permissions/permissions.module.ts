@@ -1,11 +1,12 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { PermissionsService } from './permissions.service';
 import { PermissionsGuard } from './permissions.guard';
 import { Reflector } from '@nestjs/core';
-import { PermissionDecorator } from './permissions.decorator';
+import { UsersModule } from '../users/users.module';
 
 @Module({
+  imports: [forwardRef(() => UsersModule)],
   providers: [PermissionsService, PermissionsGuard, Reflector],
-  exports: [PermissionsService, PermissionDecorator],
+  exports: [PermissionsService],
 })
 export class PermissionsModule {}
