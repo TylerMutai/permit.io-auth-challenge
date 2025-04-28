@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsArray, IsNotEmpty, IsString } from 'class-validator';
 
 export class DocumentModel {
   @IsString()
@@ -13,7 +13,15 @@ export class DocumentModel {
   @IsNotEmpty()
   content: string;
 
-  @IsString()
-  @IsNotEmpty()
-  teamId: string;
+  // Store userIds of owners.
+  @IsArray()
+  owners: Set<string>;
+
+  // Store userIds of editors.
+  @IsArray()
+  editors: Set<string>;
+
+  // Store userIds of viewers.
+  @IsArray()
+  viewers: Set<string>;
 }

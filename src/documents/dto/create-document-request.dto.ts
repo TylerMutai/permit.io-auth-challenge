@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsArray, IsNotEmpty, IsString } from 'class-validator';
 import { StandardRequest } from '../../common/entities/StandardRequest';
 
 export class CreateDocumentRequestDto extends StandardRequest {
@@ -10,7 +10,12 @@ export class CreateDocumentRequestDto extends StandardRequest {
   @IsNotEmpty()
   content: string;
 
-  @IsString()
-  @IsNotEmpty()
-  teamId: string;
+  @IsArray()
+  owners: string[];
+
+  @IsArray()
+  editors?: string[];
+
+  @IsArray()
+  viewers?: string[];
 }

@@ -12,6 +12,7 @@ import { CreateDocumentRequestDto } from './dto/create-document-request.dto';
 import { UpdateDocumentRequestDto } from './dto/update-document-request.dto';
 import { DocumentModel } from './entities/document.entity';
 import { PermissionDecorator } from '../permissions/permissions.decorator';
+import { StandardResponse } from '../common/entities/StandardResponse';
 
 @Controller('documents')
 export class DocumentsController {
@@ -46,7 +47,7 @@ export class DocumentsController {
 
   @Delete(':id')
   @PermissionDecorator({ resource: 'Document', action: 'delete' })
-  remove(@Param('id') id: string): void {
+  remove(@Param('id') id: string): StandardResponse {
     return this.documentsService.remove(id);
   }
 }
