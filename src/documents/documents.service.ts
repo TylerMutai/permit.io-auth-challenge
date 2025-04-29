@@ -43,16 +43,16 @@ export class DocumentsService {
     const isPermitted = await this.permissionsService.checkPermission({
       user: {
         key: user.id,
+      },
+      resource: {
+        type: 'Document',
         attributes: {
-          resource: {
-            owners: _doc.owners,
-            editors: _doc.editors,
-            viewers: _doc.viewers,
-          },
+          owners: _doc.owners,
+          editors: _doc.editors,
+          viewers: _doc.viewers,
         },
       },
-      resource: 'Document',
-      action: 'readOne',
+      action: 'readone',
     });
 
     if (!isPermitted) {

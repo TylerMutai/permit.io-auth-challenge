@@ -1,5 +1,5 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
-import { IUser, Permit } from 'permitio';
+import { IResource, IUser, Permit } from 'permitio';
 import { ConfigService } from '@nestjs/config';
 
 @Injectable()
@@ -24,7 +24,7 @@ export class PermissionsService implements OnModuleInit {
   }: {
     user: string | IUser;
     action: string;
-    resource: string;
+    resource: string | IResource;
   }): Promise<boolean> {
     return this.permit.check(user, action, resource);
   }
