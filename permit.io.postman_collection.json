@@ -1,0 +1,321 @@
+{
+	"info": {
+		"_postman_id": "105a663d-e610-4f1c-83ce-8319adbe31b3",
+		"name": "permit.io",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30436875",
+		"_collection_link": "https://interstellar-capsule-19467.postman.co/workspace/My-Workspace~9bb1408c-0ef5-4a3d-87fa-f4afed33b43e/collection/30436875-105a663d-e610-4f1c-83ce-8319adbe31b3?action=share&source=collection_link&creator=30436875"
+	},
+	"item": [
+		{
+			"name": "teams",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluX3VzZXIiLCJpYXQiOjE3NDU5Mjc0NzEsImV4cCI6MTc0NTkzMTA3MX0.5A-rCpSjynxWDG4kEXc_do90MEkm2naqtC_17DBAypA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/teams",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"teams"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:3000/auth/sign-in-with-email-password",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\":\"adminuser@test.com\",\n    \"password\":\"2025DEVChallenge\",\n    \"source\":\"web\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/auth/sign-in-with-email-password",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"auth",
+						"sign-in-with-email-password"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:3000/teams",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluX3VzZXIiLCJpYXQiOjE3NDU5Mjc0NzEsImV4cCI6MTc0NTkzMTA3MX0.5A-rCpSjynxWDG4kEXc_do90MEkm2naqtC_17DBAypA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"This is a test team\",\n    \"userIds\": [\"viewer_user\"],\n    \"source\":\"web\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/teams",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"teams"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:3000/documents",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluX3VzZXIiLCJpYXQiOjE3NDU5Mjc0NzEsImV4cCI6MTc0NTkzMTA3MX0.5A-rCpSjynxWDG4kEXc_do90MEkm2naqtC_17DBAypA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\":\"Testing Document\",\n    \"content\":\"Document content here\",\n    \"owners\":[\"admin_user\"],\n    \"viewers\":[\"viewer_user\"]\n\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/documents",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"documents"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:3000/documents",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InZpZXdlcl91c2VyIiwiaWF0IjoxNzQ1OTI3NTIxLCJleHAiOjE3NDU5MzExMjF9.spMi2DNj2-dyPv0azxietPHCPX7F0hU0QH-pDNrFPf4",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/documents",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"documents"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:3000/auth/sign-in-with-email-password (viewer)",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\":\"vieweruser@test.com\",\n    \"password\":\"2025DEVChallenge\",\n    \"source\":\"web\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/auth/sign-in-with-email-password",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"auth",
+						"sign-in-with-email-password"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:3000/documents/",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InZpZXdlcl91c2VyIiwiaWF0IjoxNzQ1OTI3NTIxLCJleHAiOjE3NDU5MzExMjF9.spMi2DNj2-dyPv0azxietPHCPX7F0hU0QH-pDNrFPf4",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/documents/0af2c1ef-16c2-427b-9ffe-646680784aa4",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"documents",
+						"0af2c1ef-16c2-427b-9ffe-646680784aa4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:3000/documents/a2a5288e-5041-4f55-b34b-adc0b9aed170 (admin)",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InZpZXdlcl91c2VyIiwiaWF0IjoxNzQ1OTI3NTIxLCJleHAiOjE3NDU5MzExMjF9.spMi2DNj2-dyPv0azxietPHCPX7F0hU0QH-pDNrFPf4",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/documents/a2a5288e-5041-4f55-b34b-adc0b9aed170",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"documents",
+						"a2a5288e-5041-4f55-b34b-adc0b9aed170"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:3000/auth/sign-in-with-email-password (editor)",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\":\"editoruser@test.com\",\n    \"password\":\"2025DEVChallenge\",\n    \"source\":\"web\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/auth/sign-in-with-email-password",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"auth",
+						"sign-in-with-email-password"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:3000/documents/id",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InZpZXdlcl91c2VyIiwiaWF0IjoxNzQ1OTI3NTIxLCJleHAiOjE3NDU5MzExMjF9.spMi2DNj2-dyPv0azxietPHCPX7F0hU0QH-pDNrFPf4",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/documents/5c988f22-747b-428c-a31b-b3757061fe3e",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"documents",
+						"5c988f22-747b-428c-a31b-b3757061fe3e"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,36 +1,26 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Permit IO Auth Challenge API Documentation
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## Overview
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
-
-## Description
-
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+This API is built with [NestJS](https://nestjs.com), providing user authentication and management of documents and teams
+with permission-based access control.
 
 ## Project setup
 
 ```bash
 $ pnpm install
 ```
+
+Obtain your Permit IO token and API key using [this tutorial by Permit.io](https://docs.permit.io/overview/connecting-your-app).
+Also be sure to use the `Container PDP` instead of `Cloud PDP` since the project also utilizes __attribute based access control__. You can read more about this [here](https://docs.permit.io/how-to/build-policies/abac/overview).
+
+
+## Environment Variables
+
+- `APP_SECRET` (string): Secret key used for signing JWT tokens.
+- `PERMIT_IO_TOKEN` (string): The API Key/Token you obtained from permit.io
+- `PERMIT_IO_URL` (string): Be sure to deploy the docker container provided by permit.io (in the step above on how to obtain tokens and API keys). The URL should be: `http://localhost:7766`
+  APP_SECRET="e29a7f3bdc584de6a1b2c49e3fd15db4"
 
 ## Compile and run the project
 
@@ -45,55 +35,459 @@ $ pnpm run start:dev
 $ pnpm run start:prod
 ```
 
-## Run tests
+## Base URL
 
-```bash
-# unit tests
-$ pnpm run test
-
-# e2e tests
-$ pnpm run test:e2e
-
-# test coverage
-$ pnpm run test:cov
+```
+http://localhost:3000
 ```
 
-## Deployment
+## Postman Collection
+- At the root of the project, called `permit.io.postman_collection.json`
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+## Authentication
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+The API uses JWT for authentication.
 
-```bash
-$ pnpm install -g mau
-$ mau deploy
+- Obtain a token via the Sign In endpoint.
+- Include the token in the `Authorization` header for protected endpoints:
+
+```
+Authorization: Bearer <token>
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+## Endpoints
 
-## Resources
+### Health Check
 
-Check out a few resources that may come in handy when working with NestJS:
+**GET** `/`
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+- Description: Returns a greeting message.
+- Authentication: None
+- Response (200 OK):
+    - Body: String
 
-## Support
+Example:
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+```bash
+curl http://localhost:3000/
+# Hello World!
+```
 
-## Stay in touch
+---
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+### Sign In
 
-## License
+**POST** `/auth/sign-in-with-email-password`
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+- Description: Authenticate a user with email and password.
+- Authentication: None
+- Request Body (application/json):
+
+| Field    | Type                              | Required | Description                      |
+|----------|-----------------------------------|----------|----------------------------------|
+| source   | `'ios'` \| `'android'` \| `'web'` | No       | Client source platform           |
+| email    | `string`                          | Yes      | User email (must be valid email) |
+| password | `string`                          | Yes      | User password                    |
+
+- Response (200 OK):
+
+```json
+{
+  "status": 200,
+  "message": "Success",
+  "token": "<jwt_token>",
+  "user": {
+    "status": 200,
+    "message": "Success",
+    "payload": {
+      "id": "admin_user",
+      "name": "Admin User",
+      "email": "adminuser@test.com",
+      "role": {
+        "role": "admin",
+        "tenant": "default"
+      }
+    }
+  }
+}
+```
+
+- Response (401 Unauthorized):
+
+```json
+{
+  "status": 401,
+  "message": "Wrong email/password combination"
+}
+```
+
+---
+
+## Documents
+
+All endpoints under `/documents` require authentication and appropriate permissions.
+
+**Headers**:
+
+```
+Authorization: Bearer <token>
+```
+
+#### Get All Documents
+
+**GET** `/documents`
+
+- Description: Retrieve a list of all documents.
+- Path Parameters: None
+- Request Body: None
+- Response (200 OK):
+
+```json
+{
+  "status": 200,
+  "message": "Success",
+  "payload": [
+    {
+      "id": "string",
+      "title": "string",
+      "content": "string",
+      "owners": [
+        "string"
+      ],
+      "editors": [
+        "string"
+      ],
+      "viewers": [
+        "string"
+      ]
+    }
+    // ...
+  ]
+}
+```
+
+#### Get Document by ID
+
+**GET** `/documents/:id`
+
+- Description: Retrieve a single document by its ID.
+- Path Parameters:
+
+| Parameter | Type     | Required | Description |
+|-----------|----------|----------|-------------|
+| id        | `string` | Yes      | Document ID |
+
+- Response (200 OK):
+
+```json
+{
+  "status": 200,
+  "message": "Success",
+  "payload": {
+    "id": "string",
+    "title": "string",
+    "content": "string",
+    "owners": [
+      "string"
+    ],
+    "editors": [
+      "string"
+    ],
+    "viewers": [
+      "string"
+    ]
+  }
+}
+```
+
+- Response (404 Not Found):
+
+```json
+{
+  "status": 404,
+  "message": "Document <id> not found"
+}
+```
+
+- Response (403 Forbidden):
+
+```json
+{
+  "status": 403,
+  "message": "User not allowed to access document <id>"
+}
+```
+
+#### Create Document
+
+**POST** `/documents`
+
+- Description: Create a new document.
+- Request Body (application/json):
+
+| Field   | Type                              | Required | Description             |
+|---------|-----------------------------------|----------|-------------------------|
+| source  | `'ios'` \| `'android'` \| `'web'` | No       | Client source platform  |
+| title   | `string`                          | Yes      | Title of the document   |
+| content | `string`                          | Yes      | Content of the document |
+| owners  | `string[]`                        | No       | List of owner user IDs  |
+| editors | `string[]`                        | No       | List of editor user IDs |
+| viewers | `string[]`                        | No       | List of viewer user IDs |
+
+- Response (200 OK):
+
+```json
+{
+  "status": 200,
+  "message": "Success",
+  "payload": {
+    "id": "string",
+    "title": "string",
+    "content": "string",
+    "owners": [
+      "string"
+    ],
+    "editors": [
+      "string"
+    ],
+    "viewers": [
+      "string"
+    ]
+  }
+}
+```
+
+#### Update Document
+
+**PATCH** `/documents/:id`
+
+- Description: Update fields of an existing document.
+- Path Parameters:
+
+| Parameter | Type     | Required | Description |
+|-----------|----------|----------|-------------|
+| id        | `string` | Yes      | Document ID |
+
+- Request Body (application/json):
+
+| Field   | Type                              | Required | Description            |
+|---------|-----------------------------------|----------|------------------------|
+| source  | `'ios'` \| `'android'` \| `'web'` | No       | Client source platform |
+| title   | `string`                          | No       | New document title     |
+| content | `string`                          | No       | New document content   |
+| owners  | `string[]`                        | No       | New owner user IDs     |
+| editors | `string[]`                        | No       | New editor user IDs    |
+| viewers | `string[]`                        | No       | New viewer user IDs    |
+
+- Response (200 OK):
+
+```json
+{
+  "status": 200,
+  "message": "Success",
+  "payload": {
+    "id": "string",
+    "title": "string",
+    "content": "string",
+    "owners": [
+      "string"
+    ],
+    "editors": [
+      "string"
+    ],
+    "viewers": [
+      "string"
+    ]
+  }
+}
+```
+
+#### Delete Document
+
+**DELETE** `/documents/:id`
+
+- Description: Delete a document.
+- Path Parameters:
+
+| Parameter | Type     | Required | Description |
+|-----------|----------|----------|-------------|
+| id        | `string` | Yes      | Document ID |
+
+- Response (204 No Content):
+
+```json
+{
+  "status": 204,
+  "message": "Success"
+}
+```
+
+---
+
+## Teams
+
+All endpoints under `/teams` require authentication and appropriate permissions.
+
+**Headers**:
+
+```
+Authorization: Bearer <token>
+```
+
+#### Get All Teams
+
+**GET** `/teams`
+
+- Description: Retrieve a list of all teams.
+- Response (200 OK):
+
+```json
+{
+  "status": 200,
+  "message": "Success",
+  "payload": [
+    {
+      "id": "string",
+      "name": "string",
+      "userIds": [
+        "string"
+      ]
+    }
+    // ...
+  ]
+}
+```
+
+#### Get Team by ID
+
+**GET** `/teams/:id`
+
+- Description: Retrieve a single team by its ID.
+- Path Parameters:
+
+| Parameter | Type     | Required | Description |
+|-----------|----------|----------|-------------|
+| id        | `string` | Yes      | Team ID     |
+
+- Response (200 OK):
+
+```json
+{
+  "status": 200,
+  "message": "Success",
+  "payload": {
+    "id": "string",
+    "name": "string",
+    "userIds": [
+      "string"
+    ]
+  }
+}
+```
+
+- Response (404 Not Found):
+
+```json
+{
+  "status": 404,
+  "message": "Team <id> not found"
+}
+```
+
+#### Create Team
+
+**POST** `/teams`
+
+- Description: Create a new team.
+- Request Body (application/json):
+
+| Field   | Type                              | Required | Description                        |
+|---------|-----------------------------------|----------|------------------------------------|
+| source  | `'ios'` \| `'android'` \| `'web'` | No       | Client source platform             |
+| name    | `string`                          | Yes      | Name of the team                   |
+| userIds | `string[]`                        | Yes      | List of user IDs belonging to team |
+
+- Response (200 OK):
+
+```json
+{
+  "status": 200,
+  "message": "Success",
+  "payload": {
+    "id": "string",
+    "name": "string",
+    "userIds": [
+      "string"
+    ]
+  }
+}
+```
+
+#### Update Team
+
+**PATCH** `/teams/:id`
+
+- Description: Update fields of an existing team.
+- Path Parameters:
+
+| Parameter | Type     | Required | Description |
+|-----------|----------|----------|-------------|
+| id        | `string` | Yes      | Team ID     |
+
+- Request Body (application/json):
+
+| Field   | Type       | Required | Description          |
+|---------|------------|----------|----------------------|
+| name    | `string`   | No       | New name of the team |
+| userIds | `string[]` | No       | New list of user IDs |
+
+- Response (200 OK):
+
+```json
+{
+  "status": 200,
+  "message": "Success",
+  "payload": {
+    "id": "string",
+    "name": "string",
+    "userIds": [
+      "string"
+    ]
+  }
+}
+```
+
+#### Delete Team
+
+**DELETE** `/teams/:id`
+
+- Description: Delete a team.
+- Path Parameters:
+
+| Parameter | Type     | Required | Description |
+|-----------|----------|----------|-------------|
+| id        | `string` | Yes      | Team ID     |
+
+- Response (204 No Content):
+
+```json
+{
+  "status": 204,
+  "message": "Success"
+}
+```
+
+---
+
+## Error Handling
+
+All error responses follow the structure:
+
+```json
+{
+  "status": "<HTTP status code>",
+  "message": "<Error message>"
+}
+```
+
+Appropriate HTTP status codes are used for errors (e.g., 400, 401, 403, 404).
