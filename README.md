@@ -187,11 +187,11 @@ Note in the screenshot that the attributes are duplicated across roles, which is
 #### Viewer Role
 ![Viewer Role!](assets/images/abac_o_viewer.png "Viewer Role")
 
-The first column (that starts with 'Allow_CRUD') represents permissions for owners, the column after (that starts with 'Allow_CRU') is for editors, and the last column (that starts with 'Allow_R') is for viewers. As you can note, these permissions are duplicated across roles by design. However, say you wanted admins to have access to all documents regardless, under the 'admin' role, you could alternatively adjust the permissions to allow this.
+The first column (that starts with `Allow_CRUD`) represents permissions for owners, the column after (that starts with `Allow_CRU`) is for editors, and the last column (that starts with `Allow_R`) is for viewers. As you can note, these permissions are duplicated across roles by design. However, say you wanted admins to have access to all documents regardless, under the `admin` role, you could alternatively adjust the permissions to allow this.
 
 This highlights the power of ABAC in that you can go a level further and have granular access control on top of roles.
 
-Here's a code example of enforcing attribute-based access control in code (note the 'resource' parameter where I pass the attributes as defined previously for 'owners','editor' and 'viewers', and the 'user' parameter, where I pass in the 'user.key' which is the unique user ID to cross-check against.):
+Here's a code example of enforcing attribute-based access control in code (note the `resource` parameter where I pass the attributes as defined previously for `owners`,`editors` and `viewers`, and the `user` parameter, where I pass in the `user.key` which is the unique user ID to cross-check against.):
 
 ```typescript
 export class DocumentsService {
