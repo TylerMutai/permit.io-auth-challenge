@@ -167,7 +167,7 @@ Second, a `Document` has 3 access radii: 'viewers', 'editors' and 'owners'.
 Setting this up on permit.io involved creating the 3 different ABAC policies as shown in the following screenshots (note `resource.viewers`, `resource.editors`,`resource.owners` fields, which are of the type string array (or an array of strings) set to match the `user.key` which is the `userId` - the unique ID of your user object/model. The attribute checker will then match to see whether the array contains the value represented by the `user.key` parameter):
 
 #### Viewer Permissions
-![Viewer Permissions!](https://drive.google.com/file/d/14tCyfSTjLeKsdtAruMEXdCVWBowuFYsw/preview "Viewer Permissions")
+![Viewer Permissions](assets/images/abac_viewers.png "Viewer Permissions")
 
 #### Editor Permissions
 ![Editor Permissions!](https://drive.google.com/file/d/1M9Kc2NtIY8ONRl96vw0dKLL_k7e93jN7/preview "Editor Permissions")
