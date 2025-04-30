@@ -170,22 +170,22 @@ Setting this up on permit.io involved creating the 3 different ABAC policies as 
 ![Viewer Permissions](assets/images/abac_viewers.png "Viewer Permissions")
 
 #### Editor Permissions
-![Editor Permissions!](https://drive.google.com/file/d/1M9Kc2NtIY8ONRl96vw0dKLL_k7e93jN7/preview "Editor Permissions")
+![Editor Permissions!](assets/images/abac_editors.png "Editor Permissions")
 
 #### Owner Permissions
-![Owner Permissions!](https://drive.google.com/file/d/1lmD3pEvPhhoigTQ8aNYFnudwcOxcnQvD/preview "Owner Permissions")
+![Owner Permissions!](assets/images/abac_owners.png "Owner Permissions")
 
 #### Lastly, this is how I configured access controls based on these attributes
 Note in the screenshot that the attributes are duplicated across roles, which is OK, since they remain constant regardless of role.
 
 #### Admin Role
-![Admin Role!](https://drive.google.com/file/d/19SjXqUMMgiVq-E_rOKA4LTcnUozgem1L/preview "Admin Role")
+![Admin Role!](assets/images/abac_o_admin.png "Admin Role")
 
 #### Editor Role
-![Editor Role!](https://drive.google.com/file/d/11_keA9VzhIzhm7u4owltMVbCb_KXruwa/preview "Editor Role")
+![Editor Role!](assets/images/abac_o_editor.png "Editor Role")
 
 #### Viewer Role
-![Viewer Role!](https://drive.google.com/file/d/1inLZNGO-NvYJDeQMI08H-x5d8RjPjQZm/preview "Viewer Role")
+![Viewer Role!](assets/images/abac_o_viewer.png "Viewer Role")
 
 The first column (that starts with 'Allow_CRUD') represents permissions for owners, the column after (that starts with 'Allow_CRU') is for editors, and the last column (that starts with 'Allow_R') is for viewers. As you can note, these permissions are duplicated across roles by design. However, say you wanted admins to have access to all documents regardless, under the 'admin' role, you could alternatively adjust the permissions to allow this.
 
